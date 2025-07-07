@@ -113,16 +113,36 @@
         .approval-title {
             background: linear-gradient(45deg, #27ae60, #2ecc71);
         }
+
+        /* Responsive voting comparison container */
+        .voting-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .voting-system {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ballot grid for responsive layout */
+        .ballot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
         
         .ballot {
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             padding: 12px;
-            width: 160px;
             font-size: 0.85em;
             transition: all 0.3s ease;
             cursor: pointer;
+            min-width: 150px;
         }
         
         .ballot:hover {
@@ -165,7 +185,6 @@
         }
         
         .results-box {
-            flex: 1;
             background: white;
             border-radius: 10px;
             padding: 20px;
@@ -440,7 +459,19 @@
 
         @media (max-width: 768px) {
             .voting-comparison {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .ballot-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .ballot {
+                min-width: 120px;
+                font-size: 0.8em;
+                padding: 10px;
             }
             
             .content {
@@ -467,6 +498,12 @@
 
             .legend {
                 gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ballot-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -497,11 +534,11 @@
                     
                     <div style="font-size: 1.1em; line-height: 1.8;">
                         <div style="display: flex; align-items: center; margin: 12px 0;">
-                            <div style="width: 20px; height: 20px; border: 2px solid #333; border-radius: 50%; margin-right: 12px; background: #fff; flex-shrink: 0;"></div>
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; border-radius: 50%; margin-right: 12px; background: #333; flex-shrink: 0;"></div>
                             <label style="color: #34495e; font-size: 1em; font-weight: normal;">Republican</label>
                         </div>
                         <div style="display: flex; align-items: center; margin: 12px 0;">
-                            <div style="width: 20px; height: 20px; border: 2px solid #333; border-radius: 50%; margin-right: 12px; background: #333; flex-shrink: 0;"></div>
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; border-radius: 50%; margin-right: 12px; background: #fff; flex-shrink: 0;"></div>
                             <label style="color: #34495e; font-size: 1em; font-weight: normal;">Democrat</label>
                         </div>
                         <div style="display: flex; align-items: center; margin: 12px 0;">
@@ -570,10 +607,10 @@
                     👆 CLICK THE BALLOTS TO VOTE! Watch how the results change! 👆
                 </div>
                 
-                <div style="display: flex; gap: 30px;">
-                    <div style="flex: 1;">
+                <div class="voting-comparison">
+                    <div class="voting-system">
                         <div class="section-title plurality-title" style="margin-bottom: 20px;">Current System (Choose ONE)</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;" id="plurality-ballots"></div>
+                        <div class="ballot-grid" id="plurality-ballots"></div>
                         
                         <div class="results-box plurality-results">
                             <div class="results-title">Plurality Results</div>
@@ -582,9 +619,9 @@
                         </div>
                     </div>
                     
-                    <div style="flex: 1;">
+                    <div class="voting-system">
                         <div class="section-title approval-title" style="margin-bottom: 20px;">Approval Voting (Choose ALL)</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;" id="approval-ballots"></div>
+                        <div class="ballot-grid" id="approval-ballots"></div>
                         
                         <div class="results-box approval-results">
                             <div class="results-title">Approval Results</div>
