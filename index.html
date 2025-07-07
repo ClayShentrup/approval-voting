@@ -225,6 +225,11 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
         
+        .bar-text.zero-votes {
+            text-shadow: none;
+            color: #666;
+        }
+        
         .republican { background: linear-gradient(45deg, #e74c3c, #c0392b); }
         .democrat { background: linear-gradient(45deg, #3498db, #2980b9); }
         .america { background: linear-gradient(45deg, #7b2cbf, #6a1b9a); color: white; }
@@ -299,21 +304,169 @@
         .data-link:hover {
             text-decoration: underline;
         }
-        
+
+        /* Exit Poll Chart Styles */
+        .exit-poll-chart {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            height: 300px;
+            padding: 30px 0 20px 0;
+            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .candidate-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 120px;
+        }
+
+        .bars-container {
+            display: flex;
+            gap: 2px;
+            align-items: end;
+            height: 200px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .voting-bar {
+            width: 18px;
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            transition: all 0.3s ease;
+        }
+
+        .voting-bar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .percentage-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .percentage-label {
+            font-size: 0.75em;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.3;
+            padding: 1px 4px;
+            border-radius: 2px;
+        }
+
+        .candidate-footer {
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .candidate-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9em;
+            margin-bottom: 2px;
+        }
+
+        .candidate-party {
+            font-size: 0.75em;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .plurality-bar { background: linear-gradient(to top, #c0392b, #e74c3c); }
+        .plurality-label { color: #e74c3c; }
+
+        .irv-bar { background: linear-gradient(to top, #7b1fa2, #9c27b0); }
+        .irv-label { color: #9c27b0; }
+
+        .approval-bar { background: linear-gradient(to top, #f57c00, #ff9800); }
+        .approval-label { color: #ff9800; }
+
+        .score-bar { background: linear-gradient(to top, #1976d2, #2196f3); }
+        .score-label { color: #2196f3; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+
         @media (max-width: 768px) {
-            .voting-section {
-                margin-bottom: 30px;
-            }
-            
-            .ballot {
-                font-size: 0.8em;
-                padding: 10px;
-                width: 140px;
+            .voting-comparison {
+                flex-direction: column;
             }
             
             .content {
                 padding: 20px;
                 font-size: 1em;
+            }
+
+            .chart-container {
+                height: 300px;
+                padding: 10px 0;
+            }
+
+            .bars-container {
+                height: 220px;
+            }
+
+            .candidate-group {
+                width: 100px;
+            }
+
+            .voting-bar {
+                width: 20px;
+            }
+
+            .legend {
+                gap: 15px;
             }
         }
     </style>
@@ -326,14 +479,18 @@
         
         <div class="content">
             <div class="highlight">
-                <strong>The current "choose-one" plurality voting system (also known as first-past-the-post) effectively guarantees a two-party duopoly because voters fear that a vote for anyone besides one of the most electable front-runner candidates is throwing away their vote on a "spoiler."</strong>
+                <strong>The current "choose-one" system effectively guarantees a two-party duopoly because voters fear that a vote for anyone besides one of the most electable front-runner candidates is throwing away their vote on a "spoiler."</strong>
             </div>
             
             <p><strong>The simplest solution is to let them vote for as many candidates as they want. This is known as approval voting.</strong></p>
             
+            <p>While this may seem radical, it was adopted by a <a href="https://ballotpedia.org/Fargo,_North_Dakota,_Measure_1,_Approval_Voting_Initiative_(November_2018)" class="data-link">64% supermajority in Fargo, North Dakota in 2018</a>, and then by a 68% majority in St. Louis in 2020 for use in their open primaries. The only reason it hasn't continued to spread is funding, plus Republicans banned it statewide in each state—though it was <a href="https://electionscience.org/education/fargo-success/" class="data-link">grandfathered in St. Louis but eliminated in Fargo</a>.</p>
+            
+            <p><strong>For the America Party, approval voting isn't just a reform—it's the only viable path out of two-party duopoly.</strong></p>
+            
             <div style="display: flex; gap: 30px; justify-content: center; margin: 30px 0; flex-wrap: wrap;">
-                <div style="background: white; border: 3px solid #e74c3c; border-radius: 10px; padding: 25px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <div style="text-align: center; margin-bottom: 20px; height: 60px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="background: white; border: 3px solid #e74c3c; border-radius: 10px; padding: 20px 25px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 20px;">
                         <h3 style="color: #e74c3c; margin: 0 0 5px 0; font-size: 1.3em;">CURRENT BALLOT</h3>
                         <p style="color: #666; font-size: 0.9em; margin: 0;">VOTE FOR <span style="color: #e74c3c; font-weight: bold;">ONE</span></p>
                     </div>
@@ -366,10 +523,10 @@
                     </div>
                 </div>
                 
-                <div style="background: white; border: 3px solid #27ae60; border-radius: 10px; padding: 25px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <div style="text-align: center; margin-bottom: 20px; height: 60px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="background: white; border: 3px solid #27ae60; border-radius: 10px; padding: 20px 25px; width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 20px;">
                         <h3 style="color: #27ae60; margin: 0 0 5px 0; font-size: 1.3em;">APPROVAL BALLOT</h3>
-                        <p style="color: #666; font-size: 0.9em; margin: 0;">VOTE FOR <span style="color: #27ae60; font-weight: bold;">ALL YOU<br>APPROVE OF</span></p>
+                        <p style="color: #666; font-size: 0.9em; margin: 0;">VOTE FOR <span style="color: #27ae60; font-weight: bold;">ALL YOU APPROVE<br>OF</span></p>
                     </div>
                     
                     <div style="font-size: 1.1em; line-height: 1.8;">
@@ -405,10 +562,6 @@
                 </div>
             </div>
             
-            <p>While this may seem radical, it was adopted by a <a href="https://ballotpedia.org/Fargo,_North_Dakota,_Measure_1,_Approval_Voting_Initiative_(November_2018)" class="data-link">64% supermajority in Fargo, North Dakota in 2018</a>, and then by a 68% majority in St. Louis in 2020 for use in their open primaries. The only reason it hasn't continued to spread is funding, plus Republicans banned it statewide in each state—though it was <a href="https://electionscience.org/education/fargo-success/" class="data-link">grandfathered in St. Louis but eliminated in Fargo</a>.</p>
-            
-            <p><strong>For the America Party, approval voting isn't just a reform—it's the only viable path out of two-party duopoly.</strong></p>
-            
             <div class="demo-section">
                 <div class="demo-title">See The Difference In Action</div>
                 <div class="demo-subtitle">Same 6 voters, same candidates, dramatically different results</div>
@@ -417,8 +570,8 @@
                     👆 CLICK THE BALLOTS TO VOTE! Watch how the results change! 👆
                 </div>
                 
-                <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 300px;" class="voting-section">
+                <div style="display: flex; gap: 30px;">
+                    <div style="flex: 1;">
                         <div class="section-title plurality-title" style="margin-bottom: 20px;">Current System (Choose ONE)</div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;" id="plurality-ballots"></div>
                         
@@ -429,7 +582,7 @@
                         </div>
                     </div>
                     
-                    <div style="flex: 1; min-width: 300px;" class="voting-section">
+                    <div style="flex: 1;">
                         <div class="section-title approval-title" style="margin-bottom: 20px;">Approval Voting (Choose ALL)</div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;" id="approval-ballots"></div>
                         
@@ -449,89 +602,214 @@
             
             <h2 class="section-header">The Data Is Overwhelming</h2>
             
-            <p>When voters escape plurality voting constraints, third-party support explodes:</p>
+            <p>When voters escape choose-one constraints, third-party support explodes. The <a href="https://electowiki.org/wiki/2012_Occupy_Wall_Street_polls" class="data-link">2012 Manhattan Exit Poll</a> of 507 voters shows stunning results:</p>
             
-            <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; margin: 30px 0;">
-                <h3 style="text-align: center; margin-bottom: 25px; color: #2c3e50;"><a href="https://electowiki.org/wiki/2012_Occupy_Wall_Street_polls" class="data-link" style="text-decoration: none; color: inherit;">2012 Manhattan Exit Poll: Same Voters, Different Systems</a></h3>
-                <p style="text-align: center; color: #666; margin-bottom: 30px; font-style: italic;">
-                    507 voters in Manhattan's 69th Assembly District on Election Day (public exit poll, not OWS members)
-                </p>
-                
-                <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
-                    <h4 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Presidential Election Results by Voting System</h4>
-                    
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-                        <div>Candidate</div>
-                        <div style="text-align: center; color: #e74c3c;">Plurality</div>
-                        <div style="text-align: center; color: #f39c12;">Approval</div>
-                        <div style="text-align: center; color: #27ae60;">Score</div>
+            <div class="exit-poll-chart">
+                <div class="chart-title">2012 Manhattan Exit Poll: Presidential Election Results by Voting System</div>
+                <div class="chart-container">
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 85%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 83.8%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 89.9%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">85%</div>
+                            <div class="percentage-label irv-label">83.8%</div>
+                            <div class="percentage-label approval-label">89.9%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Obama</div>
+                            <div class="candidate-party">(Democratic)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0;">
-                        <div><strong>Barack Obama (Democratic)</strong></div>
-                        <div style="text-align: center;">85%</div>
-                        <div style="text-align: center;">89%</div>
-                        <div style="text-align: center;">84%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 8.3%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 8.5%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 13%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">8.3%</div>
+                            <div class="percentage-label irv-label">8.5%</div>
+                            <div class="percentage-label approval-label">13%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Romney</div>
+                            <div class="candidate-party">(Republican)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0; background: #e8f5e8; padding: 8px; border-radius: 4px;">
-                        <div><strong>Jill Stein (Green)</strong></div>
-                        <div style="text-align: center;">3.3%</div>
-                        <div style="text-align: center; color: #27ae60; font-weight: bold;">51%</div>
-                        <div style="text-align: center; color: #27ae60; font-weight: bold;">54%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 3.2%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 3.9%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 51.9%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">3.2%</div>
+                            <div class="percentage-label irv-label">3.9%</div>
+                            <div class="percentage-label approval-label">51.9%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Stein</div>
+                            <div class="candidate-party">(Green)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0;">
-                        <div>Mitt Romney (Republican)</div>
-                        <div style="text-align: center;">8.3%</div>
-                        <div style="text-align: center;">13%</div>
-                        <div style="text-align: center;">25%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 1.8%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 1.4%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 26.8%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">1.8%</div>
+                            <div class="percentage-label irv-label">1.4%</div>
+                            <div class="percentage-label approval-label">26.8%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Johnson</div>
+                            <div class="candidate-party">(Libertarian)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0; background: #fff3e0; padding: 8px; border-radius: 4px;">
-                        <div><strong>Gary Johnson (Libertarian)</strong></div>
-                        <div style="text-align: center;">1.2%</div>
-                        <div style="text-align: center; color: #f39c12; font-weight: bold;">27%</div>
-                        <div style="text-align: center; color: #f39c12; font-weight: bold;">31%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 0.99%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 0.90%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 31.2%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">0.99%</div>
+                            <div class="percentage-label irv-label">0.90%</div>
+                            <div class="percentage-label approval-label">31.2%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Lindsay</div>
+                            <div class="candidate-party">(Socialist)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0; background: #f3e5f5; padding: 8px; border-radius: 4px;">
-                        <div><strong>Stewart Alexander (Socialist)</strong></div>
-                        <div style="text-align: center;">0.8%</div>
-                        <div style="text-align: center; color: #9c27b0; font-weight: bold;">17%</div>
-                        <div style="text-align: center; color: #9c27b0; font-weight: bold;">42%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 0.4%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 1.2%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 16.6%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">0.4%</div>
+                            <div class="percentage-label irv-label">1.2%</div>
+                            <div class="percentage-label approval-label">16.6%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Goode</div>
+                            <div class="candidate-party">(Constitution)</div>
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0; background: #e3f2fd; padding: 8px; border-radius: 4px;">
-                        <div><strong>Rocky Anderson (Justice)</strong></div>
-                        <div style="text-align: center;">0.4%</div>
-                        <div style="text-align: center; color: #2196f3; font-weight: bold;">31%</div>
-                        <div style="text-align: center; color: #2196f3; font-weight: bold;">42%</div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0;">
-                        <div>Virgil Goode (Constitution)</div>
-                        <div style="text-align: center;">0.2%</div>
-                        <div style="text-align: center;">16%</div>
-                        <div style="text-align: center;">12%</div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; align-items: center; margin: 8px 0;">
-                        <div>Write-ins</div>
-                        <div style="text-align: center;">1%</div>
-                        <div style="text-align: center;">10%</div>
-                        <div style="text-align: center;">11%</div>
+                    <div class="candidate-group">
+                        <div class="bars-container">
+                            <div class="voting-bar plurality-bar" style="height: 0.4%;"></div>
+                            <div class="voting-bar irv-bar" style="height: 0.2%;"></div>
+                            <div class="voting-bar approval-bar" style="height: 2.2%;"></div>
+                        </div>
+                        <div class="percentage-labels">
+                            <div class="percentage-label plurality-label">0.4%</div>
+                            <div class="percentage-label irv-label">0.2%</div>
+                            <div class="percentage-label approval-label">2.2%</div>
+                        </div>
+                        <div class="candidate-footer">
+                            <div class="candidate-name">Write-in</div>
+                            <div class="candidate-party">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
                 
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
-                    <strong>Stunning Results:</strong> Third-party candidates who got 0.2-3.3% under plurality voting achieved 17-54% support under approval and score voting. Jill Stein went from 3.3% to 51% approval - revealing the true two-person race was Obama vs. Stein, not Obama vs. Romney! This shows the massive pent-up demand for alternatives that our current system suppresses.
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color plurality-bar"></div>
+                        <span class="legend-text">Plurality</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color irv-bar"></div>
+                        <span class="legend-text">IRV/RCV</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color approval-bar"></div>
+                        <span class="legend-text">Approval</span>
+                    </div>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107; margin-top: 20px;">
+                    <strong>Stunning Results:</strong> Jill Stein went from 3.2% to 52% approval - revealing the true two-person race was Obama vs. Stein, not Obama vs. Romney! Lindsay jumped 31x from 0.99% to 31.2%. This shows the massive pent-up demand for alternatives that our current system suppresses.
                 </div>
             </div>
             
-            <h2 class="section-header">Why The Popular Alternatives Fail</h2>
+            <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; margin: 30px 0;">
+                <h3 style="text-align: center; margin-bottom: 25px; color: #2c3e50;">Historical Third-Party Suppression</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #7b2cbf;"><a href="https://www.rangevoting.org/PsEl04.html" class="data-link" style="text-decoration: none; color: inherit;">Ross Perot 1992</a></h4>
+                        <div style="margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span>Actual Result (Plurality)</span><span>18.9%</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 25px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #e74c3c; height: 100%; width: 19%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span><strong>Under Approval Voting</strong></span><span><strong>42%</strong></span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 25px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #27ae60; height: 100%; width: 42%;"></div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                            <strong>2.2x increase</strong> in support when voters could express true preferences
+                        </p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #7b2cbf;"><a href="https://www.rangevoting.org/Maine2014Exit" class="data-link" style="text-decoration: none; color: inherit;">Maine Governor 2014</a></h4>
+                        <div style="margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span>Cutler (Actual Result)</span><span>8.4%</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 25px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #e74c3c; height: 100%; width: 8.4%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span><strong>Under Approval Voting</strong></span><span><strong>55%</strong></span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 25px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #27ae60; height: 100%; width: 55%;"></div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                            <strong>6.5x increase</strong> — from spoiler to decisive winner
+                        </p>
+                    </div>
+                </div>
+            </div>
             
-            <p><strong>Ranked Choice Voting</strong> has three fatal flaws:</p>
+            <p><strong><a href="https://www.rangevoting.org/Maine2014Exit" class="data-link">Maine 2014</a>:</strong> Independent Eliot Cutler got 8.4% under normal voting but would have won with 54.95% under approval voting—beating both major party candidates decisively. What actually happened? Cutler (who leaned closer to Democratic positions) split the vote with the Democrat, allowing an extremely unpopular Republican governor Paul LePage to win reelection with just 48.2%. This was the second election in a row where vote-splitting handed victory to LePage despite most voters preferring someone else.</p>
+            
+            <p><strong><a href="https://www.rangevoting.org/PsEl04.html" class="data-link">2004 Presidential Study</a>:</strong> Under approval voting, third parties would have received more total votes than Bush. Ross Perot would have gotten 42% in 1992 instead of his actual 18.9%.</p>
+            
+            <p><strong><a href="https://electowiki.org/wiki/2012_Occupy_Wall_Street_polls" class="data-link">2012 Manhattan Study</a>:</strong> When 507 voters used multiple systems on Election Day, approval voting revealed "much higher support for third parties than traditional plurality elections would imply." Romney dropped from second place to last place.</p>
+            
+            <h2 class="section-header">Why RCV Fails Where Approval Succeeds</h2>
+            
+            <p><strong>Ranked Choice Voting (RCV)</strong> has been adopted in over 50 US cities and two states, yet still hasn't broken the two-party stranglehold. The Manhattan data proves why:</p>
+            
+            <p><strong>RCV barely moves the needle:</strong> Under RCV, third-party candidates saw minimal gains - Johnson actually dropped from 1.8% to 1.4%, Lindsay from 0.99% to 0.90%. Meanwhile, approval voting revealed massive hidden support: Johnson 26.8%, Lindsay 31.2%.</p>
             
             <p>1. <strong>Hidden Support:</strong> RCV has the <a href="https://www.rangevoting.org/LNH" class="data-link">"later-no-harm"</a> flaw, meaning eliminated candidates' second choices are never counted or revealed. A Green candidate's elimination hides that they were the second choice of 40% of voters, making third parties look weaker than they are.</p>
             
@@ -539,7 +817,24 @@
             
             <p>3. <strong>Strategic Voting Returns:</strong> Voters start gaming the system again, voting for "safer" candidates instead of their true preferences.</p>
             
-            <p><strong><a href="https://www.rangevoting.org/AusPol" class="data-link">Australia proves this</a>:</strong> Australia's House of Representatives uses single-winner RCV (called "preferential voting") and remains essentially two-party dominated after 150+ years. The Liberal/National Coalition and Labor Party have controlled 95%+ of House seats since World War II. Meanwhile, Australia's Senate uses proportional representation and successfully elects multiple parties—but proportional representation is <a href="https://www.rangevoting.org/PropRep" class="data-link">federally banned for US Congress</a> and faces massive political obstacles. Single-winner RCV, which could theoretically be adopted in the US, demonstrably fails to break two-party dominance even after more than a century of use. <a href="https://www.rangevoting.org/AusPol" class="data-link">Detailed analysis shows</a> that RCV's mathematical flaws—center squeeze, later-no-harm, and strategic voting incentives—prevent the breakthrough we need.</p>
+            <p>Australia's House of Representatives proves this pattern: 150+ years of single-winner RCV, still essentially two-party dominated. Only their Senate uses proportional representation (which produces multi-party democracy), but <a href="https://www.rangevoting.org/PropRep" class="data-link">proportional representation is federally banned for US House elections</a>.</p>
+            
+            <h2 class="section-header">The Political Consultant War Against Democracy</h2>
+            
+            <p>As William Poundstone documents in <a href="https://www.amazon.com/Gaming-Vote-Elections-Arent-About/dp/0809048922" class="data-link">"Gaming the Vote,"</a> political consultants have weaponized these mathematical vulnerabilities. Armed with polls, focus groups, and smear campaigns, they deliberately exploit the structural flaws of plurality voting—funding Green spoilers to hurt Democrats, paying for right-wing candidates' radio ads to split Republican votes.</p>
+            
+            <p>They function like terrorists, attacking the mathematical foundations of democracy itself. At least five U.S. presidential elections have been won by the second most popular candidate due to these exploited spoiler effects.</p>
+            
+            <p><strong>Without approval voting, the America Party faces the same mathematical doom.</strong></p>
+            
+            <h2 class="section-header">Why Proportional Representation Isn't The Answer</h2>
+            
+            <p><strong>Proportional Representation</strong> requires changing federal laws and faces massive political obstacles:</p>
+            
+            <p>- <a href="https://www.rangevoting.org/PropRep" class="data-link">Currently forbidden for US Congress elections by federal law</a> (since 1967)</p>
+            <p>- Was adopted in about two dozen US cities in the early-to-mid 1900s and <a href="https://www.rangevoting.org/PropRep" class="data-link">repealed in all of them except Cambridge, Massachusetts</a></p>
+            <p>- Recently adopted in ultra-progressive Portland, but scaling nationally faces enormous resistance</p>
+            <p>- Even if implemented, <a href="https://www.rangevoting.org/PropRep" class="data-link">cannot be used for senators, the president, governors, or congressmen from single-rep states</a>, limiting its anti-duopoly impact</p>
             
             <h2 class="section-header">The Bottom Line</h2>
             
@@ -548,6 +843,14 @@
             <p>Without approval voting, you face the same mathematical constraints that destroyed the Progressive Party, the American Independent Party, and every other serious alternative since the 1850s.</p>
             
             <p>With it, you have a genuine path to disrupting the most entrenched duopoly in American life.</p>
+            
+            <p>The establishment knows this. That's why they're <a href="https://kfgo.com/2025/04/17/armstrong-says/" class="data-link">banning it state by state</a>. They're scared because it works.</p>
+            
+            <p>The data is clear. The solution is simple. The timing is perfect.</p>
+            
+            <p>Approval voting works, and that's exactly why Republicans banned it statewide after its victories in Fargo and St. Louis. But these bans can be overturned through statewide ballot initiatives—and the funding required is remarkably small. City campaigns cost tens of thousands of dollars, statewide campaigns just a few million. For a successful entrepreneur, this represents pennies on the dollar to fundamentally reshape American democracy.</p>
+            
+            <p>The infrastructure and expertise already exist. Groups like the Center for Election Science and Show Me Integrity have proven they can win at the ballot box—they just need the resources to scale from individual cities to entire states.</p>
             
             <div class="highlight">
                 <strong>The question is: will you build the system that allows real choice, or be destroyed by the one that prevents it?</strong>
@@ -561,56 +864,51 @@
     </div>
 
     <script>
-        const candidates = [
-            { key: 'republican', name: 'Republican', class: 'republican' },
-            { key: 'democrat', name: 'Democrat', class: 'democrat' },
-            { key: 'america', name: 'America Party', class: 'america', highlight: true },
-            { key: 'green', name: 'Green', class: 'green' },
-            { key: 'libertarian', name: 'Libertarian', class: 'libertarian' }
-        ];
-
+        // Simple, bulletproof JavaScript without complex operations
         function createBallots() {
             const pluralityContainer = document.getElementById('plurality-ballots');
-            pluralityContainer.innerHTML = '';
+            const approvalContainer = document.getElementById('approval-ballots');
             
-            for (let i = 1; i <= 6; i++) {
-                const ballot = document.createElement('div');
-                ballot.className = 'ballot';
-                ballot.innerHTML = `
-                    <h4>Voter ${i}</h4>
-                    ${candidates.map(candidate => `
-                        <div class="candidate-option">
-                            <input type="radio" name="plurality-${i}" value="${candidate.key}" onchange="updateResults()" id="p-${i}-${candidate.key}">
-                            <label for="p-${i}-${candidate.key}" class="${candidate.highlight ? 'america-party' : ''}">${candidate.name}</label>
-                        </div>
-                    `).join('')}
-                `;
-                pluralityContainer.appendChild(ballot);
+            if (!pluralityContainer || !approvalContainer) return;
+            
+            const candidates = ['Republican', 'Democrat', 'America Party', 'Green', 'Libertarian'];
+            const candidateKeys = ['republican', 'democrat', 'america', 'green', 'libertarian'];
+            
+            // Create plurality ballots
+            pluralityContainer.innerHTML = '';
+            for (let voter = 1; voter <= 6; voter++) {
+                let ballotHTML = '<div class="ballot"><h4>Voter ' + voter + '</h4>';
+                for (let i = 0; i < candidates.length; i++) {
+                    const isAmerica = candidateKeys[i] === 'america';
+                    ballotHTML += '<div class="candidate-option">';
+                    ballotHTML += '<input type="radio" name="plurality-' + voter + '" value="' + candidateKeys[i] + '" onchange="updateResults()" id="p-' + voter + '-' + candidateKeys[i] + '">';
+                    ballotHTML += '<label for="p-' + voter + '-' + candidateKeys[i] + '"' + (isAmerica ? ' class="america-party"' : '') + '>' + candidates[i] + '</label>';
+                    ballotHTML += '</div>';
+                }
+                ballotHTML += '</div>';
+                pluralityContainer.innerHTML += ballotHTML;
             }
             
-            const approvalContainer = document.getElementById('approval-ballots');
+            // Create approval ballots
             approvalContainer.innerHTML = '';
-            
-            for (let i = 1; i <= 6; i++) {
-                const ballot = document.createElement('div');
-                ballot.className = 'ballot';
-                ballot.innerHTML = `
-                    <h4>Voter ${i}</h4>
-                    ${candidates.map(candidate => `
-                        <div class="candidate-option">
-                            <input type="checkbox" name="approval-${i}-${candidate.key}" onchange="updateResults()" id="a-${i}-${candidate.key}">
-                            <label for="a-${i}-${candidate.key}" class="${candidate.highlight ? 'america-party' : ''}">${candidate.name}</label>
-                        </div>
-                    `).join('')}
-                `;
-                approvalContainer.appendChild(ballot);
+            for (let voter = 1; voter <= 6; voter++) {
+                let ballotHTML = '<div class="ballot"><h4>Voter ' + voter + '</h4>';
+                for (let i = 0; i < candidates.length; i++) {
+                    const isAmerica = candidateKeys[i] === 'america';
+                    ballotHTML += '<div class="candidate-option">';
+                    ballotHTML += '<input type="checkbox" name="approval-' + voter + '-' + candidateKeys[i] + '" onchange="updateResults()" id="a-' + voter + '-' + candidateKeys[i] + '">';
+                    ballotHTML += '<label for="a-' + voter + '-' + candidateKeys[i] + '"' + (isAmerica ? ' class="america-party"' : '') + '>' + candidates[i] + '</label>';
+                    ballotHTML += '</div>';
+                }
+                ballotHTML += '</div>';
+                approvalContainer.innerHTML += ballotHTML;
             }
         }
 
         function setDemoScenario() {
             resetAllBallots();
             
-            // Plurality: Shows spoiler effect - America Party gets minimal votes
+            // Plurality votes: Republican, Democrat, America, Republican, Democrat, Republican
             document.getElementById('p-1-republican').checked = true;
             document.getElementById('p-2-democrat').checked = true;
             document.getElementById('p-3-america').checked = true;
@@ -618,21 +916,16 @@
             document.getElementById('p-5-democrat').checked = true;
             document.getElementById('p-6-republican').checked = true;
             
-            // Approval: Same voters, but America Party wins because they're everyone's 2nd choice
+            // Approval votes
             document.getElementById('a-1-republican').checked = true;
             document.getElementById('a-1-america').checked = true;
-            
             document.getElementById('a-2-democrat').checked = true;
             document.getElementById('a-2-america').checked = true;
-            
             document.getElementById('a-3-america').checked = true;
-            
             document.getElementById('a-4-republican').checked = true;
             document.getElementById('a-4-america').checked = true;
-            
             document.getElementById('a-5-democrat').checked = true;
             document.getElementById('a-5-america').checked = true;
-            
             document.getElementById('a-6-republican').checked = true;
             document.getElementById('a-6-america').checked = true;
             
@@ -645,13 +938,12 @@
         }
         
         function updatePluralityResults() {
-            const votes = {};
-            candidates.forEach(c => votes[c.key] = 0);
+            const votes = { republican: 0, democrat: 0, america: 0, green: 0, libertarian: 0 };
             
             for (let i = 1; i <= 6; i++) {
-                const selected = document.querySelector(`input[name="plurality-${i}"]:checked`);
-                if (selected) {
-                    votes[selected.value]++;
+                const checked = document.querySelector('input[name="plurality-' + i + '"]:checked');
+                if (checked) {
+                    votes[checked.value]++;
                 }
             }
             
@@ -659,15 +951,16 @@
         }
         
         function updateApprovalResults() {
-            const votes = {};
-            candidates.forEach(c => votes[c.key] = 0);
+            const votes = { republican: 0, democrat: 0, america: 0, green: 0, libertarian: 0 };
+            const candidates = ['republican', 'democrat', 'america', 'green', 'libertarian'];
             
             for (let i = 1; i <= 6; i++) {
-                candidates.forEach(candidate => {
-                    if (document.getElementById(`a-${i}-${candidate.key}`).checked) {
-                        votes[candidate.key]++;
+                for (let j = 0; j < candidates.length; j++) {
+                    const checkbox = document.getElementById('a-' + i + '-' + candidates[j]);
+                    if (checkbox && checkbox.checked) {
+                        votes[candidates[j]]++;
                     }
-                });
+                }
             }
             
             displayResults('approval-results', votes, 'approval-winner');
@@ -677,65 +970,79 @@
             const container = document.getElementById(containerId);
             const winnerDiv = document.getElementById(winnerId);
             
-            const maxPossibleVotes = 6;
-            let html = '';
-            let winner = '';
-            let winnerVotes = 0;
+            if (!container || !winnerDiv) return;
             
-            candidates.forEach(candidate => {
-                const voteCount = votes[candidate.key];
-                const barWidth = voteCount === 0 ? 0 : Math.max(15, (voteCount / maxPossibleVotes) * 100);
-                
-                if (voteCount > winnerVotes) {
-                    winner = candidate.name;
-                    winnerVotes = voteCount;
+            const candidates = [
+                { key: 'republican', name: 'Republican', class: 'republican' },
+                { key: 'democrat', name: 'Democrat', class: 'democrat' },
+                { key: 'america', name: 'America Party', class: 'america' },
+                { key: 'green', name: 'Green', class: 'green' },
+                { key: 'libertarian', name: 'Libertarian', class: 'libertarian' }
+            ];
+            
+            let html = '';
+            let maxVotes = 0;
+            let winners = [];
+            
+            // Find max votes
+            for (let i = 0; i < candidates.length; i++) {
+                const voteCount = votes[candidates[i].key];
+                if (voteCount > maxVotes) {
+                    maxVotes = voteCount;
                 }
+            }
+            
+            // Find winners
+            for (let i = 0; i < candidates.length; i++) {
+                const voteCount = votes[candidates[i].key];
+                if (voteCount === maxVotes && voteCount > 0) {
+                    winners.push(candidates[i].name);
+                }
+            }
+            
+            // Generate bars
+            for (let i = 0; i < candidates.length; i++) {
+                const candidate = candidates[i];
+                const voteCount = votes[candidate.key];
+                const barWidth = voteCount > 0 ? Math.max(15, (voteCount / 6) * 100) : 0;
                 
                 if (voteCount === 0) {
-                    html += `
-                        <div class="result-bar">
-                            <div class="bar" style="width: 0%; background: transparent;"></div>
-                            <div class="bar-text" style="color: #666; text-shadow: none;">
-                                ${candidate.name}: 0
-                            </div>
-                        </div>
-                    `;
+                    html += '<div class="result-bar">';
+                    html += '<div class="bar" style="width: 0%; background: transparent;"></div>';
+                    html += '<div class="bar-text zero-votes">' + candidate.name + ': 0</div>';
+                    html += '</div>';
                 } else {
-                    html += `
-                        <div class="result-bar">
-                            <div class="bar ${candidate.class}" style="width: ${barWidth}%;"></div>
-                            <div class="bar-text">
-                                ${candidate.name}: ${voteCount}
-                            </div>
-                        </div>
-                    `;
+                    html += '<div class="result-bar">';
+                    html += '<div class="bar ' + candidate.class + '" style="width: ' + barWidth + '%;"></div>';
+                    html += '<div class="bar-text">' + candidate.name + ': ' + voteCount + '</div>';
+                    html += '</div>';
                 }
-            });
+            }
             
             container.innerHTML = html;
             
-            if (winnerVotes > 0) {
-                winnerDiv.innerHTML = `🏆 ${winner} Wins!`;
+            // Update winner
+            if (maxVotes > 0) {
+                if (winners.length === 1) {
+                    winnerDiv.innerHTML = '🏆 ' + winners[0] + ' Wins!';
+                } else {
+                    winnerDiv.innerHTML = '🏆 Tie: ' + winners.join(' & ');
+                }
             } else {
                 winnerDiv.innerHTML = 'Click ballots to vote';
             }
         }
         
         function resetAllBallots() {
-            for (let i = 1; i <= 6; i++) {
-                candidates.forEach(candidate => {
-                    const radio = document.getElementById(`p-${i}-${candidate.key}`);
-                    if (radio) radio.checked = false;
-                    
-                    const checkbox = document.getElementById(`a-${i}-${candidate.key}`);
-                    if (checkbox) checkbox.checked = false;
-                });
+            const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
             }
-            
             updateResults();
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', function() {
             createBallots();
             setDemoScenario();
         });
